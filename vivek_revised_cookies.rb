@@ -6,10 +6,24 @@ class Oven
 
 
 
-  def self.chocolate_chip
-
-
+  def self.cookie_maker(type)
+    @type = type
+    if @type == "chocolate chip"
+      Cookies.chocolate_chip
+    elsif type == "peanut butter"
+      Oven.peanut_butter
+    elsif type == "oatmeal raisen"
+      Oven.oatmeal
+    else
+      Display.type_no
+    end
   end
+
+class Cookies
+  def self.chocolate_chip
+    puts "helloooo"
+  end
+end
 
 end
 # VIEW
@@ -78,15 +92,8 @@ class Controller
   end
 
   def self.type_response(type)
-    if type == "Chocolate Chip"
-      Over.chocolate_chip
-    elsif type == "Peanut Butter"
-      Oven.peanut_butter
-    elsif type == "Oatmeal Raisen"
-      Oven.oatmeal
-    else
-      Display.type_no
-    end
+    Oven.cookie_maker(type)
+
 
   end
 
