@@ -33,7 +33,7 @@ class Display
     puts "it will be 5 minutes"
   end
 
-  def self.texture_crispy
+  def self.gittexture_crispy
     puts "it will be 7 minutes"
   end
 
