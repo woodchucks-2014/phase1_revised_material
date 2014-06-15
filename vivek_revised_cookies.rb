@@ -1,10 +1,13 @@
 # MODEL
 class Oven
   def self.turn_oven_on
-    Controller.how_cooked
+    Controller.cookie_type
   end
 
-  def self.how_cooked
+
+
+  def self.chocolate_chip
+
 
   end
 
@@ -23,18 +26,33 @@ class Display
     puts "Cool talk to you later!"
   end
 
+  def self.type
+    puts "What type of cookie do you want to make today? Chocolate Chip, Peanut Butter or Oatmeal Raisen?"
+    @type = gets.chomp.downcase
+    Controller.type_response(@type)
+  end
+
+  def self.type_no
+    puts "Sorry we don't make those right now :("
+  end
+
   def self.texture
-    puts "How you liked to cooked? Doughy or Crispy?"
-    @texture = gets.chomp
+    puts "How would you like the cookies made? Doughy or Crispy?"
+    @texture = gets.chomp.downcase
     Controller.texture_response(@texture)
   end
 
   def self.texture_doughy
-    puts "it will be 5 minutes"
+    puts "I like it that way too! It will be 5 minutes"
   end
 
-  def self.gittexture_crispy
-    puts "it will be 7 minutes"
+  def self.texture_crispy
+    puts "Sure?! Okay, it will be 7 minutes"
+  end
+
+   def self.texture_unknown
+    puts "Sorry, I don't know how to make the cookies that way!"
+    Controller.how_cooked
   end
 
 end
@@ -55,15 +73,34 @@ class Controller
     end
   end
 
+  def self.cookie_type
+    Display.type
+  end
+
+  def self.type_response(type)
+    if type == "Chocolate Chip"
+      Over.chocolate_chip
+    elsif type == "Peanut Butter"
+      Oven.peanut_butter
+    elsif type == "Oatmeal Raisen"
+      Oven.oatmeal
+    else
+      Display.type_no
+    end
+
+  end
+
   def self.how_cooked
     Display.texture
   end
 
   def self.texture_response(texture)
-    if texture = "doughy"
+    if texture == "doughy"
       Display.texture_doughy
-    else
+    elsif texture == "crispy"
       Display.texture_crispy
+    else
+      Display.texture_unknown
     end
   end
 
