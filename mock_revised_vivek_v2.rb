@@ -3,14 +3,16 @@ class School
 	def initialize
 		# self.students = []
 		@student_names = []
-		@student_names = ["Vivek", "Sandip", "Matt"]
+		@new_students = ["Vivek", "Sandip", "Matt"]
 		file = File.open('students.csv')
 		file.each_line do |row|
 			row_array = row.split(',')
 			@student_names << row_array[1]
 		end
-		@student_names.remove[3]
+		@student_names.shift
 		@student_names
+		@student_names << @new_students
+		p @student_names.flatten
 		# @student_names.map { |name| self.students << Student.new(name)}
 	end
 
@@ -45,7 +47,7 @@ class Student
 end
 
 DBC = School.new
-p DBC
+DBC
 
 # DBC.students.each do |student|
 	# p student.name
