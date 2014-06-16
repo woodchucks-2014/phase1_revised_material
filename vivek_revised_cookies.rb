@@ -19,11 +19,36 @@ class Oven
     end
   end
 
-class Cookies
-  def self.chocolate_chip
-    puts "helloooo"
+class Cookie
+  attr_accessor :start_time
+
+  # def self.chocolate_chip
+  #   puts "helloooo"
+  # end
+
+  def cooking_time
+  end
+
+  def calculate_status
+    bake_time = Time.now - self.start_time
+    if bake_time > cooking_time 
+      return "You're shit burning"
+    end
+  end
+
+  def status
+    status = self.calculate_status
   end
 end
+
+def ChocolateChip < Cookie
+  def cooking_time
+  end
+end
+
+def OatmealRaisin < Cookie
+end
+
 
 end
 # VIEW
