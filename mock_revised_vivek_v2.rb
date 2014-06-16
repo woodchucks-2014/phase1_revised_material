@@ -12,27 +12,32 @@ class School
 		@student_names.shift
 		@student_names
 		@student_names << @new_students
-		p @student_names.flatten
+		@new_student_list = @student_names.flatten
 		# @student_names.map { |name| self.students << Student.new(name)}
 	end
 
 
 	def add_number
-		@student_names.each_with_index do |name, index|
+		@new_student_list.each_with_index do |name, index|
 		puts "#{index + 1} #{name}"
 		end
 	end
 
 	def sort
-		@student_names.sort
+		@new_student_list.sort
+
 	end
 
 	def by_letter(letter)
-		sort_names = []
-		@student_names.each do |name|
-			sort_names << if name[0] == letter
+		@sort_names = []
+		# @new_student_list.select { |name| name[0] = letter }
+		# p name[0]
+		@new_student_list.each do |name|
+		 if name[0].downcase == letter.downcase
+		 		@sort_names << name
 			end
 		end
+		@sort_names
 	end
 
 end
@@ -46,13 +51,14 @@ class Student
 	end
 end
 
+
+# Driver code
+
+##### Release 0
 DBC = School.new
-DBC
 
-# DBC.students.each do |student|
-	# p student.name
-# end
 
+# #### Release 1
 # DBC.add_number
 # puts DBC.sort
 # p DBC.by_letter("a")
