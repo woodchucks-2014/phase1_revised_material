@@ -38,12 +38,20 @@ class Student
 end
 
 class School
-  def initialize
-    @students = []
+  def initialize(students: [], cohorts: [])
+    @students = students
+    @cohorts = {}
+    cohorts.each do |cohort|
+      @cohorts[cohort] = []
+    end
   end
 
   def add_students(students)
     @students += students
+  end
+
+  def add_student_to_cohort(student, cohort)
+    @cohorts[cohort] << student
   end
 
   # id is a sequential number...
@@ -59,6 +67,13 @@ class School
     print_students @students.select {|student| student.first_name.start_with? letter}
   end
 
+  def print_students_by_cohort
+    @cohorts.each do |cohort, students|
+      puts "Cohort: #{cohort}"
+      print_students students
+    end
+  end
+
   def export_students_csv
     File.open("students-export.csv", "w") do |f|
       f.puts Student.csv_headers
@@ -72,9 +87,13 @@ end
 
 # Driver code
 students = Utils.hashes_from_csv("students.csv").map { |hash| Student.new(hash) }
-school = School.new
+school = School.new(cohorts: [:cicadas, :woodchucks])
 school.add_students(students)
 school.print_students
 school.print_students_alphabetical
 school.print_students_selected_by_first_name_first_letter('M')
 school.export_students_csv
+
+school.add_student_to_cohort(Student.new(first_name: "Matthew", last_name: "Bunday"), :woodchucks)
+school.add_student_to_cohort(Student.new(first_name: "Aleister", last_name: "Crowley"), :cicadas)
+school.print_students_by_cohort
