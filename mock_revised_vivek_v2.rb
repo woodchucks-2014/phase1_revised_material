@@ -27,6 +27,14 @@ class Student
   def to_s
     @data.values.join(", ")
   end
+
+  def self.csv_headers
+    ATTRIBUTES.map(&:to_s).join(",")
+  end
+
+  def to_csv
+    @data.values.join(",")
+  end
 end
 
 class School
@@ -46,6 +54,15 @@ class School
   def print_students
     @students.each {|student| puts student}
   end
+
+  def export_students_csv
+    File.open("students-export.csv", "w") do |f|
+      f.puts Student.csv_headers
+      @students.each do |student|
+        f.puts student.to_csv
+      end
+    end
+  end
 end
 
 
@@ -55,3 +72,4 @@ school = School.new
 school.add_students(students)
 school.print_students
 school.print_students_alphabetical
+school.export_students_csv
