@@ -23,4 +23,35 @@ class Student
   def initialize(args)
     @data = args
   end
+
+  def to_s
+    @data.values.join(", ")
+  end
 end
+
+class School
+  def initialize
+    @students = []
+  end
+
+  def add_students(students)
+    @students += students
+  end
+
+  def print_students_alphabetical
+    @students.sort_by { |student| student.first_name }.each {|student| puts student}
+  end
+
+  # id is a sequential number...
+  def print_students
+    @students.each {|student| puts student}
+  end
+end
+
+
+# Driver code
+students = Utils.hashes_from_csv("students.csv").map { |hash| Student.new(hash) }
+school = School.new
+school.add_students(students)
+school.print_students
+school.print_students_alphabetical
